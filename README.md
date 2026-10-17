@@ -28,7 +28,7 @@ Anda dapat menginstal *skill* ini langsung ke proyek maupun secara global menggu
 Jalankan perintah berikut di terminal folder proyek Anda:
 
 ```bash
-npx skills add USERNAME_ANDA/NAMA_REPO_ANDA --skill prd-writer
+npx skills add https://github.com/chandrapratamalab/phantom-skill.git --skill prd-writer
 ```
 
 ### 2. Instalasi untuk Code Agent Tertentu
