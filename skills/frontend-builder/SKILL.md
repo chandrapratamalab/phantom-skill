@@ -1,6 +1,6 @@
 ---
 name: frontend-builder
-description: Build a working, reviewable frontend prototype from UI-SPEC.md (and PRD.md) produced by ui-spec-writer and prd-writer, using a mock data layer, in any stack. Use whenever the user wants to build, code, implement, or "wujudkan" the UI from a UI spec, build the frontend first before the backend, get a clickable prototype to review UX with different roles, or says things like "bangun frontend", "buat tampilan berdasarkan UI-SPEC", "coding UI-nya", "prototype aplikasi", "implementasi desain". Also use to revise an existing frontend built from a UI-SPEC. Do NOT use for writing the PRD (prd-writer), writing the UI spec (ui-spec-writer), building the backend/API/database, or designing without a spec.
+description: Build a working, reviewable frontend prototype from UI-SPEC.md (and PRD.md) produced by ui-spec-writer and prd-writer, using a mock data layer, in any stack. Use whenever the user wants to build, code, implement, or "wujudkan" the UI from a UI spec, build the frontend first before the backend, get a clickable prototype to review UX with different roles, or says things like "bangun frontend", "buat tampilan berdasarkan UI-SPEC", "coding UI-nya", "prototype aplikasi", "implementasi desain". Also use to revise an existing frontend built from a UI-SPEC. Do NOT use for writing the PRD (prd-writer), writing the UI spec (ui-spec-writer), building the backend/API/database, or designing without a spec.`
 ---
 
 # Frontend Builder
@@ -86,6 +86,13 @@ Run the checks you can actually run: build/compile, lint, type-check, and any te
 - [ ] Project builds and runs from README instructions; lint/type-check pass where available.
 - [ ] Visual verification status is stated honestly.
 - [ ] Language of UI copy matches the UI-SPEC.
+
+## Feedback Logging (optional, never blocks)
+
+If `skill-feedback-logger` is installed:
+- Log notable events (user corrections, validator or build failures, assumptions made, spec gaps) using its protocol.
+- Before delivering, run its `scripts/check_traceability.py` when scripts can run, fix real errors, and report warnings.
+- If logging or the validator is unavailable or fails, continue the workflow and mention it in one line. Never put secrets or personal data in logs, and never edit project documents because of a log entry.
 
 ## Reference Files
 

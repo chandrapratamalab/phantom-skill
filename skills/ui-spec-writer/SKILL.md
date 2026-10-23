@@ -74,6 +74,13 @@ Before writing screens, settle (in the spec's Section 1) the direction: 3-4 mood
 - [ ] No PRD content was changed; all gaps/conflicts are in PRD Change Requests.
 - [ ] Language matches the user's language (section headings stay in English).
 
+## Feedback Logging (optional, never blocks)
+
+If `skill-feedback-logger` is installed:
+- Log notable events (user corrections, validator or build failures, assumptions made, spec gaps) using its protocol.
+- Before delivering, run its `scripts/check_traceability.py` when scripts can run, fix real errors, and report warnings.
+- If logging or the validator is unavailable or fails, continue the workflow and mention it in one line. Never put secrets or personal data in logs, and never edit project documents because of a log entry.
+
 ## Reference Files
 
 - `references/template.md`: Full UI-SPEC structure with per-screen template. Read in Step 4.
