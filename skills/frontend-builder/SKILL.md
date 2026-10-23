@@ -1,6 +1,6 @@
 ---
 name: frontend-builder
-description: Build a working, reviewable frontend prototype from UI-SPEC.md (and PRD.md) produced by ui-spec-writer and prd-writer, using a mock data layer, in any stack. Use whenever the user wants to build, code, implement, or "wujudkan" the UI from a UI spec, build the frontend first before the backend, get a clickable prototype to review UX with different roles, or says things like "bangun frontend", "buat tampilan berdasarkan UI-SPEC", "coding UI-nya", "prototype aplikasi", "implementasi desain". Also use to revise an existing frontend built from a UI-SPEC. Do NOT use for writing the PRD (prd-writer), writing the UI spec (ui-spec-writer), building the backend/API/database, or designing without a spec.`
+description: Build a working, reviewable frontend prototype from UI-SPEC.md (and PRD.md) produced by ui-spec-writer and prd-writer, using a mock data layer, in any stack. Use whenever the user wants to build, code, implement, or "wujudkan" the UI from a UI spec, build the frontend first before the backend, get a clickable prototype to review UX with different roles, or says things like "bangun frontend", "buat tampilan berdasarkan UI-SPEC", "coding UI-nya", "prototype aplikasi", "implementasi desain". Also use to revise an existing frontend built from a UI-SPEC. Do NOT use for writing the PRD (prd-writer), writing the UI spec (ui-spec-writer), building the backend/API/database, or designing without a spec.
 ---
 
 # Frontend Builder
@@ -50,17 +50,18 @@ Key requirements while building:
 - Responsive behavior follows the UI-SPEC breakpoints.
 - Accessibility floor from the spec: contrast, focus visibility, touch targets, labels, reduced motion.
 - Copy comes from the UI-SPEC microcopy, not invented.
+- **Contract first:** before building screens, write `API-CONTRACT.md` from PRD Sections 5-6 (see `references/mock-data-layer.md`). The client holds no business rules; rules are simulated inside mock services and listed in `BACKEND-RULES.md`.
 
-### Step 3: Make it reviewable (mandatory)
+### Step 3: Make it reviewable, without cluttering the product (mandatory)
 
-The prototype must let non-developers evaluate UX. Read `references/review-tools.md` and add:
-- **Role switcher** (dev-only panel) so one link serves every role.
-- **State gallery** page showing each screen in every state.
-- **Component gallery** showing each `C-xx` with its variants.
+The prototype must let non-developers evaluate UX, but **the default view is the clean product UI**: no role switcher, no gallery links, no dev buttons on any product screen. Review tools are OFF by default and appear only when review mode is switched on (flag or URL parameter; see `references/review-tools.md`). Add:
+- **Role switcher**, hidden until review mode is on, then a small collapsed handle (not part of product navigation).
+- **State gallery** on its own route, not linked from product navigation.
+- **Component gallery** on its own route, same rule.
 - **Realistic mock data** including extreme cases (long names, empty lists, large numbers).
 - A **Review Checklist per role** in `REVIEW.md`.
 
-These tools are clearly marked dev-only and removable by a single flag.
+Everything review-related lives in one folder and is removable by deleting it plus one flag.
 
 ### Step 4: Verify
 
@@ -70,7 +71,7 @@ Run the checks you can actually run: build/compile, lint, type-check, and any te
 
 1. Provide the code as a project (files in `/mnt/user-data/outputs/` when file tools are available) with a `README.md`: how to install, run, switch roles, open the galleries, and turn off dev tools.
 2. Chat summary, max ~6 lines: what was built (screens by ID), how to run it, what was verified vs. not, top assumptions.
-3. List **Change Requests** (gaps/conflicts found in PRD or UI-SPEC) in `CHANGE-REQUESTS.md` and mention them in one line.
+3. Include `API-CONTRACT.md` and `BACKEND-RULES.md` (the handoff for the backend). List **Change Requests** (gaps/conflicts found in PRD or UI-SPEC) in `CHANGE-REQUESTS.md` and mention them in one line.
 4. Offer the next step in one line: review round with each role, P1 screens, or (after UI approval) building the backend against the same endpoint shapes.
 
 ## Quality Checklist (run before delivering)
@@ -81,7 +82,8 @@ Run the checks you can actually run: build/compile, lint, type-check, and any te
 - [ ] No raw color/spacing values outside the token definitions.
 - [ ] No component reads mock data directly; all data goes through the data layer, with PRD-shaped responses and error cases.
 - [ ] Spec IDs (`S-xx`, `C-xx`, `F-xx`) appear in code names or comments.
-- [ ] Role switcher, state gallery, and component gallery work and are dev-only.
+- [ ] Role switcher, state gallery, and component gallery work in review mode, and the default view shows no dev controls at all.
+- [ ] `API-CONTRACT.md` exists, mock services implement exactly it, and every business rule simulated in the client is listed in `BACKEND-RULES.md`.
 - [ ] No feature or business rule exists that is not in the PRD.
 - [ ] Project builds and runs from README instructions; lint/type-check pass where available.
 - [ ] Visual verification status is stated honestly.

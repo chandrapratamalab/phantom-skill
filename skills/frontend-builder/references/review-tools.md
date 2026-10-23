@@ -1,5 +1,12 @@
 # Review Tools
 
+## Default: invisible
+The app opens as the clean product UI. Review tools exist but are **off unless review mode is on**.
+- **Turn on:** an environment flag (`REVIEW_MODE=true`) for team builds, or a URL parameter (`?review=1`) / keyboard shortcut for quick checks. Pick one and document it in README.
+- **When off:** no role switcher, no gallery routes registered, no dev buttons, no extra navigation items. A reviewer who has not been told about it never sees it.
+- **When on:** a small collapsed handle appears at a screen edge; galleries are reached by direct route or from that handle, never from the product's own navigation.
+- Never place review controls inside product screens, headers, or menus.
+
 The purpose of this prototype is to let people of every role judge clarity and look-and-feel. These tools make that possible without developer help. All are **dev-only**, behind one flag (e.g., `REVIEW_MODE`), and removable in one step.
 
 ## 1. Role switcher

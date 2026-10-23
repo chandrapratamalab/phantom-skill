@@ -2,6 +2,13 @@
 
 Goal: the screens must not know whether data is fake. When the real backend arrives, only this layer changes.
 
+## Contract first (prevents double work later)
+Before writing services, create `API-CONTRACT.md` from PRD Sections 5-6 and treat it as the agreement between frontend and the future backend:
+- For each endpoint: method + path, auth/role required, request fields (type, required, validation limits), success response shape, **error shape** (validation, not found, forbidden, conflict, server error), pagination/filter/sort format.
+- Status values and allowed transitions (state machine) where the PRD defines them.
+- Anything the PRD leaves open is marked `TBD` and logged as a Change Request, not guessed.
+Mock services implement exactly this file. The backend later implements the same file, so swapping is a change in one layer only.
+
 ## Structure (any stack)
 ```
 data/
@@ -30,7 +37,7 @@ Seed data decides whether reviewers believe the UI. Include:
 ## Do not
 - Invent entities, fields, or rules not in the PRD. If a screen needs data the PRD lacks, log a Change Request and use a clearly marked placeholder.
 - Embed mock values inside components or hardcode strings that should come from the spec's microcopy.
-- Implement business logic in the client that belongs to the backend (pricing, permission enforcement, calculations). Simulate the result only, and note it as "backend responsibility" in comments.
+- Implement business logic in the client that belongs to the backend (pricing, availability/conflict checks, permission enforcement, status transitions, calculations). The client may do **presentational validation only** (required, format, length). Simulate rules inside the mock **service**, mark each with `// BACKEND RULE: <short description>`, and list them in `BACKEND-RULES.md` (rule, where simulated, PRD reference, expected real behavior). That file is the handoff to the backend.
 
 ## Backend swap checklist (for later)
 1. Implement real services with the same signatures.

@@ -18,10 +18,12 @@ Do the stages in order. Each stage has a "done when" so you know it is finished 
 - Name components after the spec (`Button` for `C-01 Button`) and note the ID in a comment.
 - **Done when:** every component in the spec exists and renders all its variants.
 
-## Stage 4: Data layer (mock)
+## Stage 4: Contract and data layer (mock)
+- First write `API-CONTRACT.md` (see `mock-data-layer.md`), then implement mock services against it.
+- Start `BACKEND-RULES.md`; add an entry whenever a service simulates a business rule.
 - Follow `mock-data-layer.md`. Define types/schemas from the PRD ERD, service functions from the PRD endpoints, and seeded data per role.
 - Include simulated latency and error switches so loading and error states can be seen.
-- **Done when:** a service function exists for every endpoint a P0 feature needs.
+- **Done when:** the contract covers every endpoint a P0 feature needs, and a mock service implements each one.
 
 ## Stage 5: App shell and routing
 - Navigation model from UI-SPEC Section 2 (tab bar, sidebar, top nav), route list from the Screen Inventory, and role-based access from the PRD (redirect or hide per role).
@@ -39,8 +41,8 @@ For each screen in the UI-SPEC, in P0 → P1 → P2 order:
 - **Done when:** the screen matches its spec section and every state is reachable (via the state gallery).
 
 ## Stage 7: Review tools
-- Build the role switcher, state gallery, component gallery, and `REVIEW.md` per `review-tools.md`.
-- **Done when:** a non-developer can open the app, pick a role, and reach any state of any screen without using dev tools or editing code.
+- Build the role switcher, state gallery, component gallery, and `REVIEW.md` per `review-tools.md`, all OFF by default and shown only in review mode.
+- **Done when:** the default app shows no dev controls, and in review mode a non-developer can open the app, pick a role, and reach any state of any screen without using dev tools or editing code.
 
 ## Stage 8: Verify and document
 - Run build, lint, type-check, tests. Capture screenshots if the environment allows.
