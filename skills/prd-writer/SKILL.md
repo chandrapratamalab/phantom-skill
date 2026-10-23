@@ -32,13 +32,26 @@ If `PRD.md` already exists in the conversation or workspace and the user asks fo
 **Otherwise, do not generate the PRD yet.** Instead:
 
 1. **Detect the project archetype:** SaaS/Web App, Mobile App, 3D/Interactive Web, AI Agent/Bot, Game, CLI/Plugin/Library, Enterprise/Internal System, Marketplace, or other.
-2. **Ask 3 to 5 questions**, chosen from `references/question-bank.md` for that archetype. Rules:
+2. **Choose the questions** from `references/question-bank.md` for that archetype. Rules:
    - Never ask what can already be inferred from the user's prompt.
    - Prioritize questions that most change architecture or scope: core goal and target user, domain-specific mechanics, MVP boundary, platform and tech constraints.
-   - Put quick options in parentheses after each question so the user can answer in a few words.
+   - Every question has 2-4 short ready-made options (max ~4 words each) so the user can answer by choosing, not typing.
    - Match the user's language.
-3. **Close with this callout** (translate to the user's language):
-   > *"Answer only the points you've already decided, or reply **'build directly'** (or **'buat langsung'**) and I'll use the best standard defaults."*
+3. **Deliver the questions with the best available method** (never as free-text prose when an interactive tool exists):
+   - **a) Interactive choice tool** (preferred). If the environment offers one (e.g., `ask_user_input_v0` in Claude.ai, `AskUserQuestion` in Claude Code, or any equivalent tool that shows tappable options), use it:
+     - Send ONE call with at most **5 questions**: the 5 that most change architecture or scope. Remaining points become defaults listed in Assumptions.
+     - Options are mutually exclusive → single select. "Pick all that apply" (e.g., native features) → multi select.
+     - Add a "Use default" option (in the user's language) when a sensible default exists.
+     - Write a one-line intro BEFORE the call, including the shortcut: *"Pick an answer below, or type **'build directly'** / **'buat langsung'** to use the best defaults."*
+     - After the call, stop and wait. Do not generate the PRD in the same turn. The user's selections arrive as their next message; treat them as the answers and go to Step 2.
+   - **b) Text fallback** (no interactive tool). Ask 3 to 5 numbered questions with lettered options, so the user can reply in a few characters:
+     ```
+     1. Who are the main users?
+        A) Consumers  B) Small business  C) Internal team  D) Use default
+     2. ...
+     Reply like "1B 2A 3D", or type "build directly".
+     ```
+4. **Unanswered or skipped points** get defaults, recorded in Assumptions. Ask only one round.
 
 ### Step 2: Generate the PRD
 
