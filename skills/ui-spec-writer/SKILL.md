@@ -1,6 +1,6 @@
 ---
 name: ui-spec-writer
-description: Generate a developer- and designer-ready UI design specification (UI-SPEC.md) from an existing PRD.md produced by prd-writer, covering visual direction, information architecture, screen-by-screen specs with all states, design tokens, component library, microcopy, accessibility, and motion. Use whenever the user wants a UI spec, UI/UX design document, wireframes, design system, screen designs, style guide, or says things like "buatkan UI spec", "desain tampilan", "rancang UI/UX", "wireframe aplikasi", "design system", or asks to design the interface after a PRD exists, even if they don't say "spec". Also use to revise an existing UI-SPEC.md. Do NOT use for writing the PRD itself (use prd-writer), writing front-end code, or generating images/mockup files.
+description: Generate a developer- and designer-ready UI design specification (UI-SPEC.md) from an existing PRD.md produced by prd-writer, covering visual direction, information architecture, screen-by-screen specs with all states, design tokens, component library, microcopy, accessibility, and motion. Use whenever the user wants a UI spec, UI/UX design document, wireframes, design system, screen designs, style guide, or says things like "buatkan UI spec", "desain tampilan", "rancang UI/UX", "wireframe aplikasi", "design system", or asks to design the interface after a PRD exists, even if they don't say "spec". Also use to revise an existing UI-SPEC.md. Do NOT use for writing the PRD itself (use prd-writer), writing front-end code (use frontend-builder), or generating images/mockup files.
 ---
 
 # UI Spec Writer
@@ -57,7 +57,7 @@ Before writing screens, settle (in the spec's Section 1) the direction: 3-4 mood
 1. Create `UI-SPEC.md` (in `/mnt/user-data/outputs/` when file tools are available) and present it.
 2. In chat: 2-3 sentence summary, the visual direction in one line, and up to 5 assumptions to confirm. Do not paste the whole document.
 3. State plainly that wireframes and tokens are a proposal that should be validated visually (prototype or design tool), since text cannot confirm how it looks.
-4. Offer next steps in one line: revise a screen, add dark mode, or build it with the frontend-design skill using this spec as the brief.
+4. Offer next steps in one line: revise a screen, add dark mode, or build the frontend with the frontend-builder skill using this spec.
 
 ## Quality Checklist (run before delivering)
 
