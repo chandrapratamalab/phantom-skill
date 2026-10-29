@@ -34,7 +34,7 @@ For each feature `F-xx: [Name]`:
 - **Screen Inventory** (include whenever the product has a UI; skip for CLI/library/backend-only):
   | Screen ID | Name | Purpose | Features (F-xx) | Entry Points | Role / Access |
   |---|---|---|---|---|---|
-  Screen IDs (`S-01`...) are stable and never renumbered. This table names screens only; it does not describe their visual design. `ui-spec-writer` builds on it.
+  Screen IDs (`S-01`...) are stable and never renumbered. This table names screens only; it does not describe their visual design.
 
 ## 5. Architecture
 - **System Overview:** How UI, logic, APIs, render loops, and external services interact.

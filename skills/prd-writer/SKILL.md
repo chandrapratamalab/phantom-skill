@@ -1,6 +1,6 @@
 ---
-name: prd-writer
-description: Generate a comprehensive, developer-ready PRD (Product & Technical Requirements Document) as PRD.md with Mermaid diagrams (user flow, architecture, ERD) through a clarify-then-generate workflow. Use whenever the user wants to create a PRD, spec, requirements document, technical design, or system architecture for a software, web, mobile, AI/agent, game, 3D/interactive web, CLI, or enterprise project. Also trigger on phrases like "buatkan PRD", "rancang aplikasi", "spesifikasi proyek", "dokumen kebutuhan", "saya punya ide aplikasi", "plan this app", or when the user describes a product idea and wants it planned before coding, even if they never say "PRD". Also use to revise an existing PRD.md. Do NOT use for writing code, fixing bugs, business plans, pitch decks, marketing copy, or visual UI/UX design specs (use ui-spec-writer for those).
+name: "prd-writer"
+description: Generate a comprehensive, developer-ready PRD (Product & Technical Requirements Document) as PRD.md with Mermaid diagrams (user flow, architecture, ERD) through a clarify-then-generate workflow. Use whenever the user wants to create a PRD, spec, requirements document, technical design, or system architecture for a software, web, mobile, AI/agent, game, 3D/interactive web, CLI, or enterprise project. Also trigger on phrases like "buatkan PRD", "rancang aplikasi", "spesifikasi proyek", "dokumen kebutuhan", "saya punya ide aplikasi", "plan this app", or when the user describes a product idea and wants it planned before coding, even if they never say "PRD". Also use to revise an existing PRD.md. Do NOT use for writing code, fixing bugs, business plans, pitch decks, marketing copy, or detailed visual UI/UX design (colors, typography, pixel layouts).
 ---
 
 # Universal PRD Writer
@@ -13,7 +13,7 @@ Turn any project idea into a complete, consistent, developer-ready `PRD.md`. The
 2. **Never block on questions:** Ask at most ONE round of clarification. Unanswered points get sensible defaults, which are recorded as Assumptions (never silently invented).
 3. **Be concrete:** Numbers over adjectives. "p95 API latency < 300 ms", not "fast". "≥ 60 FPS on mid-range mobile", not "smooth".
 4. **Stay consistent:** Every feature appears in the flow, the architecture, and (if applicable) the data model. See the Quality Checklist.
-5. **Stable IDs:** FR, NFR, F, and S (screen) IDs are permanent. On revision, never renumber or reuse an ID; mark removed items as `(removed)` instead. Other skills (e.g., ui-spec-writer) reference these IDs.
+5. **Stable IDs:** FR, NFR, F, and S (screen) IDs are permanent. On revision, never renumber or reuse an ID; mark removed items as `(removed)` instead. Downstream work (design, code, tests) references these IDs.
 6. **Right-size the depth:** Small MVP or prototype → concise (roughly 3-6 pages). Multi-role, multi-service, or enterprise system → full detail. Do not pad.
 
 ## Workflow
@@ -32,26 +32,13 @@ If `PRD.md` already exists in the conversation or workspace and the user asks fo
 **Otherwise, do not generate the PRD yet.** Instead:
 
 1. **Detect the project archetype:** SaaS/Web App, Mobile App, 3D/Interactive Web, AI Agent/Bot, Game, CLI/Plugin/Library, Enterprise/Internal System, Marketplace, or other.
-2. **Choose the questions** from `references/question-bank.md` for that archetype. Rules:
+2. **Ask 3 to 5 questions**, chosen from `references/question-bank.md` for that archetype. Rules:
    - Never ask what can already be inferred from the user's prompt.
    - Prioritize questions that most change architecture or scope: core goal and target user, domain-specific mechanics, MVP boundary, platform and tech constraints.
-   - Every question has 2-4 short ready-made options (max ~4 words each) so the user can answer by choosing, not typing.
+   - Put quick options in parentheses after each question so the user can answer in a few words.
    - Match the user's language.
-3. **Deliver the questions with the best available method** (never as free-text prose when an interactive tool exists):
-   - **a) Interactive choice tool** (preferred). If the environment offers one (e.g., `ask_user_input_v0` in Claude.ai, `AskUserQuestion` in Claude Code, or any equivalent tool that shows tappable options), use it:
-     - Send ONE call with at most **5 questions**: the 5 that most change architecture or scope. Remaining points become defaults listed in Assumptions.
-     - Options are mutually exclusive → single select. "Pick all that apply" (e.g., native features) → multi select.
-     - Add a "Use default" option (in the user's language) when a sensible default exists.
-     - Write a one-line intro BEFORE the call, including the shortcut: *"Pick an answer below, or type **'build directly'** / **'buat langsung'** to use the best defaults."*
-     - After the call, stop and wait. Do not generate the PRD in the same turn. The user's selections arrive as their next message; treat them as the answers and go to Step 2.
-   - **b) Text fallback** (no interactive tool). Ask 3 to 5 numbered questions with lettered options, so the user can reply in a few characters:
-     ```
-     1. Who are the main users?
-        A) Consumers  B) Small business  C) Internal team  D) Use default
-     2. ...
-     Reply like "1B 2A 3D", or type "build directly".
-     ```
-4. **Unanswered or skipped points** get defaults, recorded in Assumptions. Ask only one round.
+3. **Close with this callout** (translate to the user's language):
+   > *"Answer only the points you've already decided, or reply **'build directly'** (or **'buat langsung'**) and I'll use the best standard defaults."*
 
 ### Step 2: Generate the PRD
 
@@ -73,7 +60,7 @@ If `PRD.md` already exists in the conversation or workspace and the user asks fo
 
 1. Create the file `PRD.md` (in `/mnt/user-data/outputs/` when file tools are available) and present it to the user.
 2. In chat, give only a short summary: 2-3 sentences on what the PRD covers, followed by the top assumptions to confirm (max 5 bullets). Do not paste the whole document into chat.
-3. Offer next steps in one line: revise a section, export to another format, or create the UI design spec (via ui-spec-writer).
+3. Offer next steps in one line: revise a section or export to another format.
 
 ## Quality Checklist (run before delivering)
 
@@ -86,16 +73,14 @@ If `PRD.md` already exists in the conversation or workspace and the user asks fo
 - [ ] All Mermaid diagrams follow `references/mermaid-rules.md` and are syntactically valid.
 - [ ] Assumptions and Open Questions are filled in (never empty when defaults were used).
 - [ ] Section 4 has a Screen Inventory (`S-xx`) when the product has a UI; every P0 feature maps to at least one screen.
-- [ ] PRD header shows Version and Date (downstream skills record which version they used).
+- [ ] PRD header shows Version and Date (downstream work can record which version it used).
 - [ ] Language matches the user's language.
 
-## Downstream Handoff (do not break)
+## Behavior vs. Visual Design (do not break)
 
-`PRD.md` is the **single source of truth for behavior**: what features exist, what they do, and in what order. Visual design lives in a separate `UI-SPEC.md` created by `ui-spec-writer`.
+`PRD.md` is the **single source of truth for behavior**: what features exist, what they do, and in what order. Visual design decisions belong outside the PRD.
 
 - Do not put colors, fonts, spacing, or pixel layouts in the PRD. Describe behavior and states only (the Screen Inventory is the one place that names screens).
-- If a UI-SPEC.md exists and the PRD is revised, tell the user in one line which screens (`S-xx`) may be affected so they can re-run ui-spec-writer for those screens only.
-- If a UI-SPEC.md raises a "PRD Change Request", apply it as a normal PRD revision (Step 0), only after the user confirms.
 
 ## Feedback Logging (optional, never blocks)
 

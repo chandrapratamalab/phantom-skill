@@ -1,11 +1,5 @@
 # Question Bank
 
-## Interactive format rules
-- Each option list maps directly to buttons: **2-4 options, ≤ 4 words each**. If a list has more than 4, keep the 3 most common plus "Use default".
-- "Pick all that apply" questions (e.g., native features, integrations) → multi select. All others → single select.
-- With an interactive tool: at most 3 questions per call. In text fallback: up to 5, with lettered options.
-- Add "Use default" as the last option when a sensible default exists, so users never have to type.
-
 Pick 3-5 questions for the detected archetype. Skip any already answered by the user's prompt. Always add quick options in parentheses. Translate to the user's language.
 
 ## Always consider (pick the most relevant)
