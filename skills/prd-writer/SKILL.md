@@ -82,13 +82,6 @@ If `PRD.md` already exists in the conversation or workspace and the user asks fo
 
 - Do not put colors, fonts, spacing, or pixel layouts in the PRD. Describe behavior and states only (the Screen Inventory is the one place that names screens).
 
-## Feedback Logging (optional, never blocks)
-
-If `skill-feedback-logger` is installed:
-- Log notable events (user corrections, validator or build failures, assumptions made, spec gaps) using its protocol.
-- Before delivering, run its `scripts/check_traceability.py` when scripts can run, fix real errors, and report warnings.
-- If logging or the validator is unavailable or fails, continue the workflow and mention it in one line. Never put secrets or personal data in logs, and never edit project documents because of a log entry.
-
 ## Reference Files
 
 - `references/template.md`: Full 7-section template with the Appendix. Read in Step 2.
